@@ -1,0 +1,384 @@
+openapi: 3.1.0
+
+info:
+    title: Dream Machine API
+    summary: A RESTful API for interacting with the Dream Machine
+    description: Generate images and videos using text_to_video, image_to_video, and video_to_video capabilities.
+    termsOfService: https://lumalabs.ai/legal/tos
+    contact:
+        name: Luma AI, Inc.
+        email: support@lumalabs.ai
+        url: https://lumalabs.ai
+    license:
+        name: Proprietary
+        identifier: Luma-AI-Dream-Machine-API
+        url: https://lumalabs.ai/legal/tos
+    version: 0.0.1
+
+servers:
+    - url: http://api.lumalabs.ai/dream-machine/0.0.1
+      description: Production
+    - url: http://internal-api.sandbox.labs.lumalabs.ai/dream-machine/0.0.1
+      description: Staging
+
+security:
+    - bearerAuth: []
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            description: The API key
+
+    schemas:
+        Error:
+            type: object
+            description: The error object
+            properties:
+                detail:
+                    type: string
+                    description: The error message
+
+        Order:
+            type: string
+            description: The order of the generations
+            enum:
+                - ascending
+                - descending
+
+        OrderBy:
+            type: string
+            description: The order by of the generations
+            enum:
+                - created_at
+
+        Task:
+            type: string
+            description: The task of the generation
+            enum:
+                - text_to_video
+                - image_to_video
+                - video_to_video
+
+        State:
+            type: string
+            description: The state of the generation
+            enum:
+                - pending
+                - processing
+                - completed
+                - failed
+
+        Assets:
+            type: object
+            description: The assets of the generation
+            properties:
+                thumbnail:
+                    type: string
+                    format: uri
+                    description: The URL of the thumbnail
+                video:
+                    type: string
+                    format: uri
+                    description: The URL of the video
+
+        Keyframe:
+            type: object
+            description: The keyframe of the generation
+            properties:
+                url:
+                    type: string
+                    format: uri
+                    description: The URL of the keyframe
+
+        GenerationRequest:
+            type: object
+            description: The generation request object
+            properties:
+                prompt:
+                    type: string
+                    description: The prompt of the generation
+                enhance_prompt:
+                    type: boolean
+                    description: Whether to enhance the prompt
+                aspect_ratio:
+                    type: string
+                    pattern: ^\d+:\d+$
+                    default: '16:9'
+                negative_prompt:
+                    type: string
+                    description: The negative prompt of the generation
+                loop:
+                    type: boolean
+                    description: Whether to loop the video
+                task:
+                    $ref: '#/components/schemas/Task'
+                    description: The task of the generation
+                start_frame:
+                    $ref: '#/components/schemas/Keyframe'
+                    description: The start frame of the generation
+                end_frame:
+                    $ref: '#/components/schemas/Keyframe'
+                    description: The end frame of the generation
+                placement:
+                    $ref: '#/components/schemas/Placement'
+                    description: The placement of the generation
+                reference_generation_id:
+                    type: string
+                    format: uuid
+                    description: The ID of the reference generation
+            required:
+                - task
+
+        GenerationResponse:
+            type: object
+            description: The generation response object
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                    description: The ID of the generation
+                state:
+                    $ref: '#/components/schemas/State'
+                    description: The state of the generation
+                created_at:
+                    type: string
+                    format: date-time
+                    description: The date and time when the generation was created
+                updated_at:
+                    type: string
+                    format: date-time
+                    description: The date and time when the generation was last updated
+                assets:
+                    $ref: '#/components/schemas/Assets'
+                    description: The assets of the generation
+                version:
+                    type: string
+                    description: The version of the generation
+            allOf:
+                - $ref: '#/components/schemas/GenerationRequest'
+
+        GenerationsResponse:
+            type: object
+            description: The generations response object
+            properties:
+                has_more:
+                    type: boolean
+                    description: Whether there are more generations
+                count:
+                    type: integer
+                    description: The number of generations returned
+                limit:
+                    type: integer
+                    description: The limit of the generations requested
+                offset:
+                    type: integer
+                    description: The offset of the generations requested
+                state:
+                    $ref: '#/components/schemas/State'
+                    description: The state of the generations requested
+                task:
+                    $ref: '#/components/schemas/Task'
+                    description: The task of the generations requested
+                order:
+                    $ref: '#/components/schemas/Order'
+                    description: The order of the generations requested
+                order_by:
+                    $ref: '#/components/schemas/OrderBy'
+                    description: The order by of the generations requested
+                from_created_at:
+                    type: string
+                    format: date-time
+                    description: The start date of the generations requested
+                to_created_at:
+                    type: string
+                    format: date-time
+                    description: The end date of the generations requested
+                generations:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GenerationResponse'
+                    description: The generations requested
+            required:
+                - generations
+
+        Placement:
+            type: string
+            enum:
+                - before
+                - after
+
+paths:
+    /ping:
+        get:
+            summary: Ping
+            description: Check if the API is running
+            operationId: ping
+            tags:
+                - Ping
+            responses:
+                '200':
+                    description: API is running
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        description: The message
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /generations:
+        post:
+            summary: Create a generation
+            description: Initiate a new generation with the provided prompt and task
+            operationId: createGeneration
+            tags:
+                - Generations
+            requestBody:
+                required: true
+                description: The generation request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/GenerationRequest'
+            responses:
+                '201':
+                    description: Generation created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GenerationResponse'
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        get:
+            summary: List generations
+            description: Retrieve a list of generations with optional filtering and sorting
+            operationId: listGenerations
+            tags:
+                - Generations
+            parameters:
+                - name: limit
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      default: 100
+                - name: offset
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      default: 0
+                - name: state
+                  in: query
+                  required: false
+                  schema:
+                      $ref: '#/components/schemas/State'
+                      description: The state of the generations requested
+                - name: task
+                  in: query
+                  required: false
+                  schema:
+                      $ref: '#/components/schemas/Task'
+                      description: The task of the generations requested
+                - name: order
+                  in: query
+                  required: false
+                  schema:
+                      $ref: '#/components/schemas/Order'
+                      description: The order of the generations requested
+                - name: order_by
+                  in: query
+                  required: false
+                  schema:
+                      $ref: '#/components/schemas/OrderBy'
+                      description: The order by of the generations requested
+                - name: from_created_at
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      format: date-time
+                - name: to_created_at
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      format: date-time
+            responses:
+                '200':
+                    description: Generations found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GenerationsResponse'
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /generations/{id}:
+        get:
+            summary: Get a generation
+            description: Retrieve details of a specific generation by its ID
+            operationId: getGeneration
+            tags:
+                - Generations
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                  description: The ID of the generation
+            responses:
+                '200':
+                    description: Generation found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GenerationResponse'
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        delete:
+            summary: Delete a generation
+            description: Remove a specific generation by its ID
+            operationId: deleteGeneration
+            tags:
+                - Generations
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                  description: The ID of the generation
+            responses:
+                '204':
+                    description: Generation deleted
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
