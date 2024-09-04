@@ -317,7 +317,7 @@ components:
                 count: 1
                 limit: 100
                 offset: 0
-                state: 'completed'
+                order: 'descending'
                 generations:
                     - id: '123e4567-e89b-12d3-a456-426614174000'
                       state: 'completed'
