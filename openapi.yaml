@@ -234,7 +234,7 @@ components:
                               frame1:
                                   imageUrl: 'https://example.com/video.mp4'
 
-        GenerationResponse:
+        Generation:
             type: object
             description: The generation response object
             properties:
@@ -308,7 +308,7 @@ components:
                 generations:
                     type: array
                     items:
-                        $ref: '#/components/schemas/GenerationResponse'
+                        $ref: '#/components/schemas/Generation'
                     description: The generations requested
             required:
                 - generations
@@ -401,7 +401,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GenerationResponse'
+                                $ref: '#/components/schemas/Generation'
                 default:
                     description: Error
                     content:
@@ -467,7 +467,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GenerationResponse'
+                                $ref: '#/components/schemas/Generation'
                 default:
                     description: Error
                     content:
