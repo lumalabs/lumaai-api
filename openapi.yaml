@@ -22,8 +22,8 @@ servers:
       description: Staging Base URL
 
 resources:
-    keyframe:
-        Generation:
+    generations:
+        GenerationReference:
             type: object
             description: The generation reference object
             properties:
@@ -45,18 +45,6 @@ resources:
             example:
                 imageUrl: 'https://example.com/image.jpg'
 
-security:
-    - bearerAuth: []
-
-components:
-    securitySchemes:
-        bearerAuth:
-            type: apiKey
-            description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
-            in: header
-            name: Authorization
-
-    schemas:
         Error:
             type: object
             description: The error object
@@ -103,8 +91,8 @@ components:
 
         Keyframe:
             oneOf:
-                - $ref: '#/resources/keyframe/Generation'
-                - $ref: '#/resources/keyframe/Image'
+                - $ref: '#/resources/generations/GenerationReference'
+                - $ref: '#/resources/generations/Image'
             description: A keyframe can be either a Generation reference, an Image, or a Video
             examples:
                 - generation:
@@ -119,10 +107,10 @@ components:
             description: The keyframes of the generation
             properties:
                 frame0:
-                    $ref: '#/components/schemas/Keyframe'
+                    $ref: '#/resources/generations/Keyframe'
                     description: The frame 0 of the generation
                 frame1:
-                    $ref: '#/components/schemas/Keyframe'
+                    $ref: '#/resources/generations/Keyframe'
                     description: The frame 1 of the generation
             example:
                 frame0:
@@ -151,7 +139,7 @@ components:
                     type: boolean
                     description: Whether to loop the video
                 keyframes:
-                    $ref: '#/components/schemas/Keyframes'
+                    $ref: '#/resources/generations/Keyframes'
                     description: The keyframes of the generation
             examples:
                 - text_to_video:
@@ -243,7 +231,7 @@ components:
                     format: uuid
                     description: The ID of the generation
                 state:
-                    $ref: '#/components/schemas/State'
+                    $ref: '#/resources/generations/State'
                     description: The state of the generation
                 state_reason:
                     type: string
@@ -257,13 +245,13 @@ components:
                     format: date-time
                     description: The date and time when the generation was last updated
                 assets:
-                    $ref: '#/components/schemas/Assets'
+                    $ref: '#/resources/generations/Assets'
                     description: The assets of the generation
                 version:
                     type: string
                     description: The model version used for the generation eg. v1.6
                 request:
-                    $ref: '#/components/schemas/GenerationRequest'
+                    $ref: '#/resources/generations/GenerationRequest'
             example:
                 id: '123e4567-e89b-12d3-a456-426614174000'
                 state: 'completed'
@@ -303,12 +291,12 @@ components:
                     type: integer
                     description: The offset of the generations requested
                 order:
-                    $ref: '#/components/schemas/Order'
+                    $ref: '#/resources/generations/Order'
                     description: The order of the generations requested
                 generations:
                     type: array
                     items:
-                        $ref: '#/components/schemas/Generation'
+                        $ref: '#/resources/generations/Generation'
                     description: The generations requested
             required:
                 - generations
@@ -340,6 +328,17 @@ components:
                               frame1:
                                   gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
+security:
+    - bearerAuth: []
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: apiKey
+            description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
+            in: header
+            name: Authorization
+
 paths:
     /ping:
         get:
@@ -366,7 +365,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: '#/resources/generations/Error'
                     example:
                         detail: 'Invalid API key provided'
 
@@ -383,7 +382,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/GenerationRequest'
+                            $ref: '#/resources/generations/GenerationRequest'
                 example:
                     prompt: 'A serene lake surrounded by mountains at sunset'
                     enhance_prompt: true
@@ -401,13 +400,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Generation'
+                                $ref: '#/resources/generations/Generation'
                 default:
                     description: Error
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: '#/resources/generations/Error'
 
         get:
             summary: List generations
@@ -432,20 +431,20 @@ paths:
                   in: query
                   required: false
                   schema:
-                      $ref: '#/components/schemas/Order'
+                      $ref: '#/resources/generations/Order'
             responses:
                 '200':
                     description: Generations found
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/ListGenerationResponse'
+                                $ref: '#/resources/generations/ListGenerationResponse'
                 default:
                     description: Error
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: '#/resources/generations/Error'
 
     /generations/{id}:
         get:
@@ -467,13 +466,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Generation'
+                                $ref: '#/resources/generations/Generation'
                 default:
                     description: Error
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: '#/resources/generations/Error'
 
         delete:
             summary: Delete a generation
@@ -496,4 +495,4 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: '#/resources/generations/Error'
