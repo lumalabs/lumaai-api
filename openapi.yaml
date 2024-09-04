@@ -3,7 +3,7 @@ openapi: 3.1.0
 info:
     title: Dream Machine API
     summary: A RESTful API for interacting with the Dream Machine
-    description: Generate images and videos using text_to_video, image_to_video, and video_to_video capabilities.
+    description: Generate videos using Dream Machine.
     termsOfService: https://lumalabs.ai/legal/tos
     contact:
         name: Luma AI, Inc.
@@ -16,13 +16,10 @@ info:
     version: v1alpha
 
 servers:
-    - url: http://api.lumalabs.ai/dream-machine/v1alpha
+    - url: http://internal-api.virginia.labs.lumalabs.ai/dream-machine/v1alpha
       description: Production Base URL
     - url: http://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
       description: Staging Base URL
-
-security:
-    - bearerAuth: []
 
 resources:
     keyframe:
@@ -30,34 +27,26 @@ resources:
             type: object
             description: The generation reference object
             properties:
-                id:
+                gen_id:
                     type: string
                     format: uuid
                     description: The ID of the generation
             example:
-                id: '123e4567-e89b-12d3-a456-426614174000'
+                gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
         Image:
             type: object
             description: The image object
             properties:
-                url:
+                imageUrl:
                     type: string
                     format: uri
                     description: The URL of the image
             example:
-                url: 'https://example.com/image.jpg'
+                imageUrl: 'https://example.com/image.jpg'
 
-        Video:
-            type: object
-            description: The video object
-            properties:
-                url:
-                    type: string
-                    format: uri
-                    description: The URL of the video
-            example:
-                url: 'https://example.com/video.mp4'
+security:
+    - bearerAuth: []
 
 components:
     securitySchemes:
@@ -85,13 +74,6 @@ components:
                 - ascending
                 - descending
             example: descending
-
-        OrderBy:
-            type: string
-            description: The order by of the generations
-            enum:
-                - created_at
-            example: created_at
 
         State:
             type: string
@@ -123,18 +105,14 @@ components:
             oneOf:
                 - $ref: '#/resources/keyframe/Generation'
                 - $ref: '#/resources/keyframe/Image'
-                - $ref: '#/resources/keyframe/Video'
             description: A keyframe can be either a Generation reference, an Image, or a Video
             examples:
                 - generation:
                       value:
-                          id: '123e4567-e89b-12d3-a456-426614174000'
+                          gen_id: '123e4567-e89b-12d3-a456-426614174000'
                 - image:
                       value:
-                          url: 'https://example.com/image.jpg'
-                - video:
-                      value:
-                          url: 'https://example.com/video.mp4'
+                          imageUrl: 'https://example.com/image.jpg'
 
         Keyframes:
             type: object
@@ -150,7 +128,7 @@ components:
                 frame0:
                     url: 'https://api.lumalabs.ai/dream-machine/v1alpha/images/123.jpg'
                 frame1:
-                    id: '123e4567-e89b-12d3-a456-426614174000'
+                    gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
         GenerationRequest:
             type: object
@@ -192,7 +170,7 @@ components:
                           loop: false
                           keyframes:
                               frame0:
-                                  url: 'https://example.com/image.jpg'
+                                  imageUrl: 'https://example.com/image.jpg'
                 - image_to_video_end_frame:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -202,7 +180,7 @@ components:
                           loop: false
                           keyframes:
                               frame1:
-                                  url: 'https://example.com/image.jpg'
+                                  imageUrl: 'https://example.com/image.jpg'
                 - image_to_video_keyframes:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -211,9 +189,9 @@ components:
                           negative_prompt: 'cloudy, stormy'
                           keyframes:
                               frame0:
-                                  url: 'https://example.com/image.jpg'
+                                  imageUrl: 'https://example.com/image.jpg'
                               frame1:
-                                  url: 'https://example.com/image.jpg'
+                                  imageUrl: 'https://example.com/image.jpg'
                 - extend_video:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -223,7 +201,7 @@ components:
                           loop: true
                           keyframes:
                               frame0:
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                                  gen_id: '123e4567-e89b-12d3-a456-426614174000'
                 - extend_video_reverse:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -232,7 +210,7 @@ components:
                           negative_prompt: 'cloudy, stormy'
                           keyframes:
                               frame1:
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                                  gen_id: '123e4567-e89b-12d3-a456-426614174000'
                 - interpolate_image_to_video:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -241,9 +219,9 @@ components:
                           negative_prompt: 'cloudy, stormy'
                           keyframes:
                               frame0:
-                                  url: 'https://example.com/image.jpg'
+                                  imageUrl: 'https://example.com/image.jpg'
                               frame1:
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                                  gen_id: '123e4567-e89b-12d3-a456-426614174000'
                 - interpolate_video_to_image:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -252,9 +230,9 @@ components:
                           negative_prompt: 'cloudy, stormy'
                           keyframes:
                               frame0:
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                                  gen_id: '123e4567-e89b-12d3-a456-426614174000'
                               frame1:
-                                  url: 'https://example.com/video.mp4'
+                                  imageUrl: 'https://example.com/video.mp4'
 
         GenerationResponse:
             type: object
@@ -304,9 +282,9 @@ components:
                     loop: true
                     keyframes:
                         frame0:
-                            url: 'https://example.com/image.jpg'
+                            imageUrl: 'https://example.com/image.jpg'
                         frame1:
-                            id: '123e4567-e89b-12d3-a456-426614174000'
+                            gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
         ListGenerationResponse:
             type: object
@@ -327,20 +305,6 @@ components:
                 state:
                     $ref: '#/components/schemas/State'
                     description: The state of the generations requested
-                order:
-                    $ref: '#/components/schemas/Order'
-                    description: The order of the generations requested
-                order_by:
-                    $ref: '#/components/schemas/OrderBy'
-                    description: The order by of the generations requested
-                from_created_at:
-                    type: string
-                    format: date-time
-                    description: The start date of the generations requested
-                to_created_at:
-                    type: string
-                    format: date-time
-                    description: The end date of the generations requested
                 generations:
                     type: array
                     items:
@@ -354,10 +318,6 @@ components:
                 limit: 100
                 offset: 0
                 state: 'completed'
-                order: 'descending'
-                order_by: 'created_at'
-                from_created_at: '2023-06-01T00:00:00Z'
-                to_created_at: '2023-06-02T00:00:00Z'
                 generations:
                     - id: '123e4567-e89b-12d3-a456-426614174000'
                       state: 'completed'
@@ -376,9 +336,9 @@ components:
                           loop: true
                           keyframes:
                               frame0:
-                                  url: 'https://example.com/image.jpg'
+                                  imageUrl: 'https://example.com/image.jpg'
                               frame1:
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                                  gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
 paths:
     /ping:
@@ -432,9 +392,9 @@ paths:
                     loop: true
                     keyframes:
                         frame0:
-                            url: 'https://example.com/image.jpg'
+                            imageUrl: 'https://example.com/image.jpg'
                         frame1:
-                            id: '123e4567-e89b-12d3-a456-426614174000'
+                            gen_id: '123e4567-e89b-12d3-a456-426614174000'
             responses:
                 '201':
                     description: Generation created
@@ -468,36 +428,11 @@ paths:
                   schema:
                       type: integer
                       default: 0
-                - name: state
-                  in: query
-                  required: false
-                  schema:
-                      $ref: '#/components/schemas/State'
-                      description: The state of the generations requested
                 - name: order
                   in: query
                   required: false
                   schema:
                       $ref: '#/components/schemas/Order'
-                      description: The order of the generations requested
-                - name: order_by
-                  in: query
-                  required: false
-                  schema:
-                      $ref: '#/components/schemas/OrderBy'
-                      description: The order by of the generations requested
-                - name: from_created_at
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      format: date-time
-                - name: to_created_at
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      format: date-time
             responses:
                 '200':
                     description: Generations found
