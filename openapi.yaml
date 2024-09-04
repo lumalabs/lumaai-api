@@ -302,9 +302,9 @@ components:
                 offset:
                     type: integer
                     description: The offset of the generations requested
-                state:
-                    $ref: '#/components/schemas/State'
-                    description: The state of the generations requested
+                order:
+                    $ref: '#/components/schemas/Order'
+                    description: The order of the generations requested
                 generations:
                     type: array
                     items:
