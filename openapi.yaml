@@ -338,6 +338,7 @@ components:
             description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
             in: header
             name: Authorization
+            scheme: bearer
 
 paths:
     /ping:
