@@ -173,17 +173,90 @@ components:
                 keyframes:
                     $ref: '#/components/schemas/Keyframes'
                     description: The keyframes of the generation
-            example:
-                prompt: 'A serene lake surrounded by mountains at sunset'
-                enhance_prompt: true
-                aspect_ratio: '16:9'
-                negative_prompt: 'cloudy, stormy'
-                loop: true
-                keyframes:
-                    frame0:
-                        url: 'https://example.com/image.jpg'
-                    frame1:
-                        id: '123e4567-e89b-12d3-a456-426614174000'
+            examples:
+                - text_to_video:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                - image_to_video:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame0:
+                                  url: 'https://example.com/image.jpg'
+                - image_to_video_end_frame:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame1:
+                                  url: 'https://example.com/image.jpg'
+                - image_to_video_keyframes:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame0:
+                                  url: 'https://example.com/image.jpg'
+                              frame1:
+                                  url: 'https://example.com/image.jpg'
+                - extend_video:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame0:
+                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                - extend_video_reverse:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame1:
+                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                - interpolate_image_to_video:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame0:
+                                  url: 'https://example.com/image.jpg'
+                              frame1:
+                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                - interpolate_video_to_image:
+                      value:
+                          prompt: 'A serene lake surrounded by mountains at sunset'
+                          enhance_prompt: true
+                          aspect_ratio: '16:9'
+                          negative_prompt: 'cloudy, stormy'
+                          loop: true
+                          keyframes:
+                              frame0:
+                                  id: '123e4567-e89b-12d3-a456-426614174000'
+                              frame1:
+                                  url: 'https://example.com/video.mp4'
 
         GenerationResponse:
             type: object
