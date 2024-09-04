@@ -334,11 +334,9 @@ security:
 components:
     securitySchemes:
         bearerAuth:
-            type: apiKey
-            description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
-            in: header
-            name: Authorization
+            type: http
             scheme: bearer
+            description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
 
 paths:
     /ping:
