@@ -97,8 +97,8 @@ components:
             type: string
             description: The state of the generation
             enum:
-                - pending
-                - processing
+                - queued
+                - dreaming
                 - completed
                 - failed
             example: completed
