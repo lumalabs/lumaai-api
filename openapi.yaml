@@ -140,7 +140,7 @@ components:
             allOf:
                 - $ref: '#/components/schemas/GenerationRequest'
 
-        GenerationsResponse:
+        ListGenerationResponse:
             type: object
             description: The generations response object
             properties:
@@ -290,7 +290,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GenerationsResponse'
+                                $ref: '#/components/schemas/ListGenerationResponse'
                 default:
                     description: Error
                     content:
