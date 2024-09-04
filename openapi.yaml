@@ -13,13 +13,13 @@ info:
         name: Proprietary
         identifier: Luma-AI-Dream-Machine-API
         url: https://lumalabs.ai/legal/tos
-    version: 0.0.1
+    version: v1alpha
 
 servers:
-    - url: http://api.lumalabs.ai/dream-machine/0.0.1
-      description: Production
-    - url: http://internal-api.sandbox.labs.lumalabs.ai/dream-machine/0.0.1
-      description: Staging
+    - url: http://api.lumalabs.ai/dream-machine/v1alpha
+      description: Production Base URL
+    - url: http://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
+      description: Staging Base URL
 
 security:
     - bearerAuth: []
@@ -27,9 +27,10 @@ security:
 components:
     securitySchemes:
         bearerAuth:
-            type: http
-            scheme: bearer
-            description: The API key
+            type: apiKey
+            description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
+            in: header
+            name: Authorization
 
     schemas:
         Error:
@@ -52,14 +53,6 @@ components:
             description: The order by of the generations
             enum:
                 - created_at
-
-        Task:
-            type: string
-            description: The task of the generation
-            enum:
-                - text_to_video
-                - image_to_video
-                - video_to_video
 
         State:
             type: string
@@ -112,24 +105,12 @@ components:
                 loop:
                     type: boolean
                     description: Whether to loop the video
-                task:
-                    $ref: '#/components/schemas/Task'
-                    description: The task of the generation
-                start_frame:
+                frame0:
                     $ref: '#/components/schemas/Keyframe'
                     description: The start frame of the generation
-                end_frame:
+                frame1:
                     $ref: '#/components/schemas/Keyframe'
                     description: The end frame of the generation
-                placement:
-                    $ref: '#/components/schemas/Placement'
-                    description: The placement of the generation
-                reference_generation_id:
-                    type: string
-                    format: uuid
-                    description: The ID of the reference generation
-            required:
-                - task
 
         GenerationResponse:
             type: object
@@ -178,9 +159,6 @@ components:
                 state:
                     $ref: '#/components/schemas/State'
                     description: The state of the generations requested
-                task:
-                    $ref: '#/components/schemas/Task'
-                    description: The task of the generations requested
                 order:
                     $ref: '#/components/schemas/Order'
                     description: The order of the generations requested
@@ -202,12 +180,6 @@ components:
                     description: The generations requested
             required:
                 - generations
-
-        Placement:
-            type: string
-            enum:
-                - before
-                - after
 
 paths:
     /ping:
@@ -238,7 +210,7 @@ paths:
     /generations:
         post:
             summary: Create a generation
-            description: Initiate a new generation with the provided prompt and task
+            description: Initiate a new generation with the provided prompt
             operationId: createGeneration
             tags:
                 - Generations
@@ -288,12 +260,6 @@ paths:
                   schema:
                       $ref: '#/components/schemas/State'
                       description: The state of the generations requested
-                - name: task
-                  in: query
-                  required: false
-                  schema:
-                      $ref: '#/components/schemas/Task'
-                      description: The task of the generations requested
                 - name: order
                   in: query
                   required: false
