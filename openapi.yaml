@@ -187,7 +187,7 @@ components:
                           enhance_prompt: true
                           aspect_ratio: '16:9'
                           negative_prompt: 'cloudy, stormy'
-                          loop: true
+                          loop: false
                           keyframes:
                               frame0:
                                   url: 'https://example.com/image.jpg'
@@ -197,7 +197,7 @@ components:
                           enhance_prompt: true
                           aspect_ratio: '16:9'
                           negative_prompt: 'cloudy, stormy'
-                          loop: true
+                          loop: false
                           keyframes:
                               frame1:
                                   url: 'https://example.com/image.jpg'
@@ -207,7 +207,6 @@ components:
                           enhance_prompt: true
                           aspect_ratio: '16:9'
                           negative_prompt: 'cloudy, stormy'
-                          loop: true
                           keyframes:
                               frame0:
                                   url: 'https://example.com/image.jpg'
@@ -229,7 +228,6 @@ components:
                           enhance_prompt: true
                           aspect_ratio: '16:9'
                           negative_prompt: 'cloudy, stormy'
-                          loop: true
                           keyframes:
                               frame1:
                                   id: '123e4567-e89b-12d3-a456-426614174000'
@@ -239,7 +237,6 @@ components:
                           enhance_prompt: true
                           aspect_ratio: '16:9'
                           negative_prompt: 'cloudy, stormy'
-                          loop: true
                           keyframes:
                               frame0:
                                   url: 'https://example.com/image.jpg'
@@ -251,7 +248,6 @@ components:
                           enhance_prompt: true
                           aspect_ratio: '16:9'
                           negative_prompt: 'cloudy, stormy'
-                          loop: true
                           keyframes:
                               frame0:
                                   id: '123e4567-e89b-12d3-a456-426614174000'
