@@ -172,7 +172,7 @@ components:
                     description: The assets of the generation
                 version:
                     type: string
-                    description: The version of the generation
+                    description: The model version used for the generation eg. v1.6
                 request:
                     $ref: '#/components/schemas/GenerationRequest'
 
