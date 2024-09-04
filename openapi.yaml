@@ -63,10 +63,6 @@ components:
                 - completed
                 - failed
 
-        StateReason:
-            type: string
-            description: The reason for the state of the generation
-
         Assets:
             type: object
             description: The assets of the generation
@@ -161,7 +157,7 @@ components:
                     $ref: '#/components/schemas/State'
                     description: The state of the generation
                 state_reason:
-                    $ref: '#/components/schemas/StateReason'
+                    type: string
                     description: The reason for the state of the generation
                 created_at:
                     type: string
