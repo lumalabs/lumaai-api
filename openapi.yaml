@@ -21,15 +21,15 @@ servers:
     - url: http://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
       description: Staging Base URL
 
+security:
+    - BearerAuth: []
+
 components:
-    security_schemes:
+    securitySchemes:
         BearerAuth:
             type: http
             scheme: bearer
             bearerFormat: JWT
-
-security:
-    - BearerAuth: []
 
 resources:
     generations:
