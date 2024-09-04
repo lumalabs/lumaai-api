@@ -137,8 +137,8 @@ components:
                 version:
                     type: string
                     description: The version of the generation
-            allOf:
-                - $ref: '#/components/schemas/GenerationRequest'
+                request:
+                    $ref: '#/components/schemas/GenerationRequest'
 
         ListGenerationResponse:
             type: object
