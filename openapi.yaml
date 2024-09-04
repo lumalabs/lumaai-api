@@ -25,7 +25,7 @@ security:
     - bearerAuth: []
 
 resources:
-    generations:
+    keyframe:
         Generation:
             type: object
             description: The generation reference object
@@ -121,9 +121,9 @@ components:
 
         Keyframe:
             oneOf:
-                - $ref: '#/resources/generations/Generation'
-                - $ref: '#/resources/generations/Image'
-                - $ref: '#/resources/generations/Video'
+                - $ref: '#/resources/keyframe/Generation'
+                - $ref: '#/resources/keyframe/Image'
+                - $ref: '#/resources/keyframe/Video'
             description: A keyframe can be either a Generation reference, an Image, or a Video
             examples:
                 - generation:
