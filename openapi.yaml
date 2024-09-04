@@ -21,6 +21,16 @@ servers:
     - url: http://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
       description: Staging Base URL
 
+components:
+    security_schemes:
+        BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+
+security:
+    - BearerAuth: []
+
 resources:
     generations:
         GenerationReference:
@@ -328,16 +338,7 @@ resources:
                               frame1:
                                   gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
-security:
-    - bearerAuth: []
-
-components:
-    securitySchemes:
-        bearerAuth:
-            type: http
-            scheme: bearer
-            description: API Key to access the API. The API key should be prefixed with "Bearer " in the Authorization header.
-
+# ... rest of your API specification ...
 paths:
     /ping:
         get:
