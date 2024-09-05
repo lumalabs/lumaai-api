@@ -178,6 +178,10 @@ resources:
                     type: string
                     format: uuid
                     description: The ID of the generation
+                user_id:
+                    type: string
+                    format: uuid
+                    description: The ID of the user who created the generation
                 state:
                     $ref: '#/components/schemas/State'
                     description: The state of the generation
