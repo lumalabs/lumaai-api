@@ -34,19 +34,21 @@ resources:
                     type: string
                     format: uuid
                     description: The ID of the generation
-            example:
-                gen_id: '123e4567-e89b-12d3-a456-426614174000'
+            examples:
+                generation_reference:
+                    value:
+                        gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
         Image:
             type: object
             description: The image object
             properties:
-                imageUrl:
+                image_url:
                     type: string
                     format: uri
                     description: The URL of the image
             example:
-                imageUrl: 'https://example.com/image.jpg'
+                image_url: 'https://example.com/image.jpg'
 
         Assets:
             type: object
@@ -104,7 +106,7 @@ resources:
                           loop: false
                           keyframes:
                               frame0:
-                                  imageUrl: 'https://example.com/image.jpg'
+                                  image_url: 'https://example.com/image.jpg'
                 - image_to_video_end_frame:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -114,7 +116,7 @@ resources:
                           loop: false
                           keyframes:
                               frame1:
-                                  imageUrl: 'https://example.com/image.jpg'
+                                  image_url: 'https://example.com/image.jpg'
                 - image_to_video_keyframes:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -123,9 +125,9 @@ resources:
                           negative_prompt: 'cloudy, stormy'
                           keyframes:
                               frame0:
-                                  imageUrl: 'https://example.com/image.jpg'
+                                  image_url: 'https://example.com/image.jpg'
                               frame1:
-                                  imageUrl: 'https://example.com/image.jpg'
+                                  image_url: 'https://example.com/image.jpg'
                 - extend_video:
                       value:
                           prompt: 'A serene lake surrounded by mountains at sunset'
@@ -153,7 +155,7 @@ resources:
                           negative_prompt: 'cloudy, stormy'
                           keyframes:
                               frame0:
-                                  imageUrl: 'https://example.com/image.jpg'
+                                  image_url: 'https://example.com/image.jpg'
                               frame1:
                                   gen_id: '123e4567-e89b-12d3-a456-426614174000'
                 - interpolate_video_to_image:
@@ -166,7 +168,7 @@ resources:
                               frame0:
                                   gen_id: '123e4567-e89b-12d3-a456-426614174000'
                               frame1:
-                                  imageUrl: 'https://example.com/video.mp4'
+                                  image_url: 'https://example.com/video.mp4'
 
         Generation:
             type: object
@@ -216,7 +218,7 @@ resources:
                     loop: true
                     keyframes:
                         frame0:
-                            imageUrl: 'https://example.com/image.jpg'
+                            image_url: 'https://example.com/image.jpg'
                         frame1:
                             gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
@@ -282,7 +284,7 @@ components:
                           gen_id: '123e4567-e89b-12d3-a456-426614174000'
                 - image:
                       value:
-                          imageUrl: 'https://example.com/image.jpg'
+                          image_url: 'https://example.com/image.jpg'
 
         ListGenerationResponse:
             type: object
@@ -334,7 +336,7 @@ components:
                           loop: true
                           keyframes:
                               frame0:
-                                  imageUrl: 'https://example.com/image.jpg'
+                                  image_url: 'https://example.com/image.jpg'
                               frame1:
                                   gen_id: '123e4567-e89b-12d3-a456-426614174000'
 
@@ -391,7 +393,7 @@ paths:
                     loop: true
                     keyframes:
                         frame0:
-                            imageUrl: 'https://example.com/image.jpg'
+                            image_url: 'https://example.com/image.jpg'
                         frame1:
                             gen_id: '123e4567-e89b-12d3-a456-426614174000'
             responses:
