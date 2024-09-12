@@ -1,0 +1,66 @@
+# yaml-language-server: $schema=https://app.stainlessapi.com/config.schema.json
+
+organization:
+    name: luma_ai
+    docs: https://lumalabs.ai
+    contact: support@lumalabs.ai
+resources:
+    ping:
+        methods:
+            check: get /ping
+    generations:
+        methods:
+            create: post /generations
+            retrieve: get /generations/{id}
+            delete: delete /generations/{id}
+            list:
+                type: http
+                endpoint: get /generations
+                paginated: false
+        subresources:
+            camera_motion:
+                methods:
+                    list:
+                        type: http
+                        endpoint: get /generations/camera_motion/list
+                        paginated: false
+        models:
+            generation: Generation
+            camera_motion: CameraMotion
+targets:
+    node:
+        package_name: luma_ai
+        production_repo: lumalabs/luma_ai-node
+        publish:
+            npm: false
+    python:
+        package_name: luma_ai
+        production_repo: lumalabs/luma_ai-python
+        publish:
+            pypi: false
+settings:
+    license: Apache-2.0
+client_settings:
+    opts:
+        auth_token:
+            type: string
+            nullable: false
+            auth: { security_scheme: BearerAuth }
+environments:
+    production: https://api.lumalabs.ai/dream-machine/v1alpha
+    production_api: https://internal-api.virginia.labs.lumalabs.ai/dream-machine/v1alpha
+    staging: https://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
+    localhost: http://localhost:9600/dream-machine/v1alpha
+query_settings:
+    nested_format: brackets
+    array_format: comma
+readme:
+    example_requests:
+        default:
+            type: request
+            endpoint: post /generations
+            params: &ref_0 { prompt: 'time machine' }
+        headline:
+            type: request
+            endpoint: post /generations
+            params: *ref_0
