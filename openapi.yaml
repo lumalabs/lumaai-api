@@ -17,13 +17,13 @@ info:
 
 servers:
     - url: https://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
-      description: Sandbox Base URL
+      description: Sandbox
     - url: https://internal-api.virginia.labs.lumalabs.ai/dream-machine/v1alpha
-      description: Production Base URL
+      description: Production
     - url: https://api.lumalabs.ai/dream-machine/v1alpha
-      description: Production API Base URL
+      description: Production API
     - url: http://localhost:9600/dream-machine/v1alpha
-      description: Localhost Base URL
+      description: Localhost
 
 security:
     - BearerAuth: []
