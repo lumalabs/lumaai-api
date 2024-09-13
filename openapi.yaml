@@ -2,7 +2,7 @@ openapi: 3.1.0
 
 info:
     title: Dream Machine API
-    summary: A RESTful API for interacting with the Dream Machine
+    summary: REST API for Dream Machine
     description: Generate videos using Dream Machine.
     termsOfService: https://lumalabs.ai/legal/tos
     contact:
