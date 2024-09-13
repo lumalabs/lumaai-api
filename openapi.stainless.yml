@@ -11,7 +11,7 @@ resources:
     generations:
         methods:
             create: post /generations
-            retrieve: get /generations/{id}
+            get: get /generations/{id}
             delete: delete /generations/{id}
             list:
                 type: http
