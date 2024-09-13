@@ -61,3 +61,4 @@ readme:
             type: request
             endpoint: post /generations
             params: *ref_0
+    include_stainless_attribution: false
