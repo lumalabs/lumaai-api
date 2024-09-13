@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://app.stainlessapi.com/config.schema.json
 
 organization:
-    name: luma_ai
+    name: lumaai
     docs: https://lumalabs.ai
     contact: support@lumalabs.ai
 resources:
@@ -29,13 +29,13 @@ resources:
             camera_motion: CameraMotion
 targets:
     node:
-        package_name: luma_ai
-        production_repo: lumalabs/luma_ai-node
+        package_name: lumaai
+        production_repo: lumalabs/lumaai-node
         publish:
             npm: false
     python:
-        package_name: luma_ai
-        production_repo: lumalabs/luma_ai-python
+        package_name: lumaai
+        production_repo: lumalabs/lumaai-python
         publish:
             pypi: false
 settings:
