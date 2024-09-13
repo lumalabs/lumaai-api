@@ -48,9 +48,6 @@ client_settings:
             auth: { security_scheme: BearerAuth }
 environments:
     production: https://api.lumalabs.ai/dream-machine/v1alpha
-    production_api: https://internal-api.virginia.labs.lumalabs.ai/dream-machine/v1alpha
-    staging: https://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
-    localhost: http://localhost:9600/dream-machine/v1alpha
 query_settings:
     nested_format: brackets
     array_format: comma
