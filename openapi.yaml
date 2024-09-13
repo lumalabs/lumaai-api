@@ -190,7 +190,7 @@ components:
                     $ref: '#/components/schemas/Keyframes'
                     description: The keyframes of the generation
                 camera_motion:
-                    $ref: '#/components/schemas/CameraMotion'
+                    type: string
                     description: The camera motion of the generation
             examples:
                 - text_to_video:
@@ -352,26 +352,6 @@ components:
                 frame1:
                     type: generation
                     id: '123e4567-e89b-12d3-a456-426614174000'
-
-        CameraMotion:
-            type: string
-            description: The camera motion of the generation
-            enum:
-                - static
-                - move_left
-                - move_right
-                - move_up
-                - move_down
-                - push_in
-                - pull_out
-                - zoom_in
-                - zoom_out
-                - pan_left
-                - pan_right
-                - orbit_left
-                - orbit_right
-                - crane_up
-                - crane_down
 
 paths:
     /ping:
@@ -541,7 +521,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/CameraMotion'
+                                    type: string
                 default:
                     description: Error
                     content:
