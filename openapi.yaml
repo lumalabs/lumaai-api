@@ -11,19 +11,11 @@ info:
         url: https://lumalabs.ai
     license:
         name: Proprietary
-        identifier: Luma-AI-Dream-Machine-API
         url: https://lumalabs.ai/legal/tos
     version: v1alpha
 
 servers:
-    - url: https://internal-api.sandbox.labs.lumalabs.ai/dream-machine/v1alpha
-      description: Sandbox
-    - url: https://internal-api.virginia.labs.lumalabs.ai/dream-machine/v1alpha
-      description: Production
     - url: https://api.lumalabs.ai/dream-machine/v1alpha
-      description: Production API
-    - url: http://localhost:9600/dream-machine/v1alpha
-      description: Localhost
 
 security:
     - BearerAuth: []
@@ -120,11 +112,9 @@ components:
             required:
                 - type
                 - id
-            examples:
-                generation:
-                    value:
-                        type: generation
-                        id: '123e4567-e89b-12d3-a456-426614174000'
+            example:
+                type: generation
+                id: '123e4567-e89b-12d3-a456-426614174000'
 
         ImageReference:
             type: object
@@ -143,9 +133,8 @@ components:
                 - type
                 - url
             example:
-                value:
-                    type: image
-                    url: 'https://example.com/image.jpg'
+                type: image
+                url: 'https://example.com/image.jpg'
 
         Assets:
             type: object
@@ -190,79 +179,79 @@ components:
                     $ref: '#/components/schemas/Keyframes'
                     description: The keyframes of the generation
             examples:
-                - text_to_video:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          loop: true
-                - image_to_video:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          loop: false
-                          keyframes:
-                              frame0:
-                                  type: image
-                                  url: 'https://example.com/image.jpg'
-                - image_to_video_end_frame:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          loop: false
-                          keyframes:
-                              frame1:
-                                  type: image
-                                  url: 'https://example.com/image.jpg'
-                - image_to_video_keyframes:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          keyframes:
-                              frame0:
-                                  type: image
-                                  url: 'https://example.com/image.jpg'
-                              frame1:
-                                  type: image
-                                  url: 'https://example.com/image.jpg'
-                - extend_video:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          loop: true
-                          keyframes:
-                              frame0:
-                                  type: generation
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
-                - extend_video_reverse:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          keyframes:
-                              frame1:
-                                  type: generation
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
-                - interpolate_image_to_video:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          keyframes:
-                              frame0:
-                                  type: image
-                                  url: 'https://example.com/image.jpg'
-                              frame1:
-                                  type: generation
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
-                - interpolate_video_to_image:
-                      value:
-                          prompt: 'A serene lake surrounded by mountains at sunset'
-                          aspect_ratio: '16:9'
-                          keyframes:
-                              frame0:
-                                  type: generation
-                                  id: '123e4567-e89b-12d3-a456-426614174000'
-                              frame1:
-                                  type: image
-                                  url: 'https://example.com/video.mp4'
+                - summary: Text to video
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      loop: true
+                - summary: Image to video
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      loop: false
+                      keyframes:
+                          frame0:
+                              type: image
+                              url: 'https://example.com/image.jpg'
+                - summary: Image to video end frame
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      loop: false
+                      keyframes:
+                          frame1:
+                              type: image
+                              url: 'https://example.com/image.jpg'
+                - summary: Image to video keyframes
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      keyframes:
+                          frame0:
+                              type: image
+                              url: 'https://example.com/image.jpg'
+                          frame1:
+                              type: image
+                              url: 'https://example.com/image.jpg'
+                - summary: Extend video
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      loop: true
+                      keyframes:
+                          frame0:
+                              type: generation
+                              id: '123e4567-e89b-12d3-a456-426614174000'
+                - summary: Extend video reverse
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      keyframes:
+                          frame1:
+                              type: generation
+                              id: '123e4567-e89b-12d3-a456-426614174000'
+                - summary: Interpolate image to video
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      keyframes:
+                          frame0:
+                              type: image
+                              url: 'https://example.com/image.jpg'
+                          frame1:
+                              type: generation
+                              id: '123e4567-e89b-12d3-a456-426614174000'
+                - summary: Interpolate video to image
+                  value:
+                      prompt: 'A serene lake surrounded by mountains at sunset'
+                      aspect_ratio: '16:9'
+                      keyframes:
+                          frame0:
+                              type: generation
+                              id: '123e4567-e89b-12d3-a456-426614174000'
+                          frame1:
+                              type: image
+                              url: 'https://example.com/video.mp4'
 
         Generation:
             type: object
@@ -320,17 +309,16 @@ components:
                 mapping:
                     generation: '#/components/schemas/GenerationReference'
                     image: '#/components/schemas/ImageReference'
-
             description: A keyframe can be either a Generation reference, an Image, or a Video
             examples:
-                - generation:
-                      value:
-                          type: generation
-                          id: '123e4567-e89b-12d3-a456-426614174000'
-                - image:
-                      value:
-                          type: image
-                          url: 'https://example.com/image.jpg'
+                - summary: Generation reference
+                  value:
+                      type: generation
+                      id: '123e4567-e89b-12d3-a456-426614174000'
+                - summary: Image reference
+                  value:
+                      type: image
+                      url: 'https://example.com/image.jpg'
 
         Keyframes:
             type: object
@@ -369,16 +357,8 @@ paths:
                                     message:
                                         type: string
                                         description: The message
-                    example:
-                        message: 'pong'
-                default:
-                    description: Error
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Error'
-                    example:
-                        detail: 'Invalid API key provided'
+                                example:
+                                    message: 'pong'
 
     /generations:
         post:
@@ -394,17 +374,19 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/GenerationRequest'
-                example:
-                    prompt: 'A serene lake surrounded by mountains at sunset'
-                    aspect_ratio: '16:9'
-                    loop: true
-                    keyframes:
-                        frame0:
-                            type: image
-                            url: 'https://example.com/image.jpg'
-                        frame1:
-                            type: generation
-                            id: '123e4567-e89b-12d3-a456-426614174000'
+                        examples:
+                            default:
+                                value:
+                                    prompt: 'A serene lake surrounded by mountains at sunset'
+                                    aspect_ratio: '16:9'
+                                    loop: true
+                                    keyframes:
+                                        frame0:
+                                            type: image
+                                            url: 'https://example.com/image.jpg'
+                                        frame1:
+                                            type: generation
+                                            id: '123e4567-e89b-12d3-a456-426614174000'
             responses:
                 '201':
                     description: Generation created
