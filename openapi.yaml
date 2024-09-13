@@ -189,9 +189,6 @@ components:
                 keyframes:
                     $ref: '#/components/schemas/Keyframes'
                     description: The keyframes of the generation
-                camera_motion:
-                    type: string
-                    description: The camera motion of the generation
             examples:
                 - text_to_video:
                       value:
