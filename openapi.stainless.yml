@@ -5,9 +5,6 @@ organization:
     docs: https://lumalabs.ai
     contact: support@lumalabs.ai
 resources:
-    ping:
-        methods:
-            check: get /ping
     generations:
         methods:
             create: post /generations
@@ -27,6 +24,9 @@ resources:
         models:
             generation: Generation
             camera_motion: CameraMotion
+    ping:
+        methods:
+            check: get /ping
 targets:
     node:
         package_name: lumaai
