@@ -56,7 +56,12 @@ readme:
         default:
             type: request
             endpoint: post /generations
-            params: &ref_0 { prompt: 'time machine' }
+            params:
+                &ref_0 {
+                    prompt: 'A teddy bear in sunglasses playing electric guitar, dancing and headbanging in the jungle in front of a large beautiful waterfall',
+                    aspect_ratio: '16:9',
+                    loop: false,
+                }
         headline:
             type: request
             endpoint: post /generations
