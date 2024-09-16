@@ -23,7 +23,6 @@ resources:
                         paginated: false
         models:
             generation: Generation
-            camera_motion: CameraMotion
     ping:
         methods:
             check: get /ping
