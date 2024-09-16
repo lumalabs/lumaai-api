@@ -74,6 +74,5 @@ custom_casings:
         camel: lumaai
         snake: lumaai
         capital: LumaAI
-
-openapi:
-    code_samples: readme
+# openapi:
+#     code_samples: readme
