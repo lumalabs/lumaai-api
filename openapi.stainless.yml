@@ -47,7 +47,7 @@ client_settings:
             read_env: LUMAAI_API_KEY
             auth: { security_scheme: BearerAuth }
 environments:
-    production: https://api.lumalabs.ai/dream-machine/v1alpha
+    production: https://api.lumalabs.ai/dream-machine/v1
 query_settings:
     nested_format: brackets
     array_format: comma
