@@ -31,7 +31,7 @@ targets:
         package_name: lumaai
         production_repo: lumalabs/lumaai-node
         publish:
-            npm: false
+            npm: true
     python:
         package_name: lumaai
         production_repo: lumalabs/lumaai-python
