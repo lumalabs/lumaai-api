@@ -44,6 +44,7 @@ client_settings:
         auth_token:
             type: string
             nullable: false
+            read_env: LUMAAI_API_KEY
             auth: { security_scheme: BearerAuth }
 environments:
     production: https://api.lumalabs.ai/dream-machine/v1alpha
