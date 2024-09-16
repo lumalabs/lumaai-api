@@ -484,7 +484,7 @@ paths:
 
     /generations/camera_motion/list:
         get:
-            summary: Get camera motion
+            summary: Get camera motions
             description: Get all possible camera motions
             operationId: getCameraMotion
             tags:
