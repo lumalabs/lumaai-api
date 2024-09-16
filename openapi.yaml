@@ -12,10 +12,10 @@ info:
     license:
         name: Proprietary
         url: https://lumalabs.ai/legal/tos
-    version: v1alpha
+    version: 1.0.0
 
 servers:
-    - url: https://api.lumalabs.ai/dream-machine/v1alpha
+    - url: https://api.lumalabs.ai/dream-machine/v1
 
 security:
     - BearerAuth: []
@@ -330,7 +330,7 @@ components:
             example:
                 frame0:
                     type: image
-                    url: 'https://api.lumalabs.ai/dream-machine/v1alpha/images/123.jpg'
+                    url: 'https://example.com/image.jpg'
                 frame1:
                     type: generation
                     id: '123e4567-e89b-12d3-a456-426614174000'
