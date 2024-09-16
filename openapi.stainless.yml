@@ -67,3 +67,13 @@ readme:
             endpoint: post /generations
             params: *ref_0
     include_stainless_attribution: false
+
+custom_casings:
+    lumaai:
+        pascal: LumaAI
+        camel: lumaai
+        snake: lumaai
+        capital: LumaAI
+
+openapi:
+    code_samples: readme
