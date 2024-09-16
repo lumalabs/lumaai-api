@@ -35,7 +35,7 @@ components:
                     type: string
                     description: The error message
             example:
-                detail: 'Invalid API key provided'
+                detail: 'Invalid API key is provided'
 
         State:
             type: string
