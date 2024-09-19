@@ -158,6 +158,7 @@ components:
                 - '9:21'
             description: The aspect ratio of the generation
             example: '16:9'
+            default: '16:9'
 
         GenerationRequest:
             type: object
