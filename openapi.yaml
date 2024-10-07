@@ -335,6 +335,16 @@ components:
                     type: generation
                     id: '123e4567-e89b-12d3-a456-426614174000'
 
+        Credits:
+            type: object
+            description: The credits object
+            properties:
+                credit_balance:
+                    type: number
+                    format: float
+                    description: Available credits balance in USD cents
+            required:
+                - credit_balance
 paths:
     /ping:
         get:
@@ -498,6 +508,27 @@ paths:
                                 type: array
                                 items:
                                     type: string
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /credits:
+        get:
+            summary: Get credits
+            description: Get the credits information for the api user
+            operationId: getCredits
+            tags:
+                - Credits
+            responses:
+                '200':
+                    description: Credits found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Credits'
                 default:
                     description: Error
                     content:
