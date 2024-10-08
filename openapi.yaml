@@ -12,7 +12,7 @@ info:
     license:
         name: Proprietary
         url: https://lumalabs.ai/legal/tos
-    version: 1.0.3-test
+    version: 1.0.3
 
 servers:
     - url: https://api.lumalabs.ai/dream-machine/v1
