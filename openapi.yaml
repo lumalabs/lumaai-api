@@ -176,6 +176,10 @@ components:
                 keyframes:
                     $ref: '#/components/schemas/Keyframes'
                     description: The keyframes of the generation
+                callback_url:
+                    type: string
+                    format: uri
+                    description: The callback URL of the generation, a POST request with Generation object will be sent to the callback URL when the generation is dreaming, completed, or failed
             examples:
                 - summary: Text to video
                   value:
