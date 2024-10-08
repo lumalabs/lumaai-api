@@ -26,6 +26,9 @@ resources:
     ping:
         methods:
             check: get /ping
+    credits:
+        methods:
+            get: get /credits
 targets:
     node:
         package_name: lumaai
