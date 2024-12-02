@@ -21,6 +21,12 @@ resources:
                         type: http
                         endpoint: get /generations/camera_motion/list
                         paginated: false
+            image:
+                methods:
+                    create: post /generations/image
+            video:
+                methods:
+                    create: post /generations
         models:
             generation: Generation
     ping:
