@@ -113,7 +113,7 @@ components:
                 - id
             example:
                 type: generation
-                id: '123e4567-e89b-12d3-a456-426614174002'
+                id: '123e4567-e89b-12d3-a456-426614174003'
 
         ImageReference:
             type: object
