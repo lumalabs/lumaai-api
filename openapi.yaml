@@ -169,6 +169,31 @@ components:
             example: '16:9'
             default: '16:9'
 
+        VideoModel:
+            type: string
+            enum:
+                - ray-1-6
+                - ray-2
+            default: ray-1-6
+            example: ray-1-6
+            description: The video model used for the generation
+
+        VideoModelOutputResolution:
+            anyOf:
+                - type: string
+                  enum:
+                      - 540p
+                      - 720p
+                - type: string
+
+        VideoModelOutputDuration:
+            anyOf:
+                - type: string
+                  enum:
+                      - 5s
+                      - 9s
+                - type: string
+
         GenerationRequest:
             type: object
             description: The generation request object
@@ -194,6 +219,15 @@ components:
                     type: string
                     format: uri
                     description: The callback URL of the generation, a POST request with Generation object will be sent to the callback URL when the generation is dreaming, completed, or failed
+                model:
+                    $ref: '#/components/schemas/VideoModel'
+                    description: The model used for the generation
+                resolution:
+                    $ref: '#/components/schemas/VideoModelOutputResolution'
+                    description: The resolution of the generation
+                duration:
+                    $ref: '#/components/schemas/VideoModelOutputDuration'
+                    description: The duration of the generation
             examples:
                 - summary: Text to video
                   value:
