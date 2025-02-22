@@ -147,6 +147,10 @@ components:
                     type: string
                     format: uri
                     description: The URL of the image
+                progress_video:
+                    type: string
+                    format: uri
+                    description: The URL of the progress video
             examples:
                 - summary: Video
                   value:
@@ -184,6 +188,8 @@ components:
                   enum:
                       - 540p
                       - 720p
+                      - 1080p
+                      - 4k
                 - type: string
 
         VideoModelOutputDuration:
@@ -341,6 +347,7 @@ components:
                     oneOf:
                         - $ref: '#/components/schemas/GenerationRequest'
                         - $ref: '#/components/schemas/ImageGenerationRequest'
+                        - $ref: '#/components/schemas/UpscaleVideoGenerationRequest'
                     description: The request of the generation
             example:
                 id: '123e4567-e89b-12d3-a456-426614174000'
@@ -492,6 +499,23 @@ components:
                 modify_image_ref:
                     $ref: '#/components/schemas/ModifyImageRef'
 
+        UpscaleVideoGenerationRequest:
+            type: object
+            description: The upscale generation request object
+            properties:
+                generation_type:
+                    type: string
+                    enum:
+                        - upscale_video
+                    default: upscale_video
+                resolution:
+                    $ref: '#/components/schemas/VideoModelOutputResolution'
+                    description: The resolution of the upscale
+                callback_url:
+                    type: string
+                    format: uri
+                    description: The callback URL for the upscale
+
 paths:
     /ping:
         get:
@@ -632,6 +656,41 @@ paths:
             responses:
                 '204':
                     description: Generation deleted
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /generations/{id}/upscale:
+        post:
+            summary: Upscale a generation
+            description: Upscale a generation by its ID
+            operationId: upscaleGeneration
+            tags:
+                - Generations
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                  description: The ID of the generation
+            requestBody:
+                required: true
+                description: The upscale request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpscaleVideoGenerationRequest'
+            responses:
+                '200':
+                    description: Generation upscaled
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Generation'
                 default:
                     description: Error
                     content:
