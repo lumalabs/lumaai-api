@@ -14,6 +14,7 @@ resources:
                 type: http
                 endpoint: get /generations
                 paginated: false
+            upscale: post /generations/{id}/upscale
         subresources:
             camera_motion:
                 methods:
