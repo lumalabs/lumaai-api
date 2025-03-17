@@ -3,7 +3,7 @@
 organization:
     name: lumaai
     docs: https://lumalabs.ai
-    contact: support@lumalabs.ai
+    contact: support+api@lumalabs.ai
 resources:
     generations:
         methods:
