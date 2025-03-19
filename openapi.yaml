@@ -349,6 +349,7 @@ components:
                         - $ref: '#/components/schemas/GenerationRequest'
                         - $ref: '#/components/schemas/ImageGenerationRequest'
                         - $ref: '#/components/schemas/UpscaleVideoGenerationRequest'
+                        - $ref: '#/components/schemas/AudioGenerationRequest'
                     description: The request of the generation
             example:
                 id: '123e4567-e89b-12d3-a456-426614174000'
@@ -516,6 +517,26 @@ components:
                     type: string
                     format: uri
                     description: The callback URL for the upscale
+
+        AudioGenerationRequest:
+            type: object
+            description: The audio generation request object
+            properties:
+                generation_type:
+                    type: string
+                    enum:
+                        - add_audio
+                    default: add_audio
+                prompt:
+                    type: string
+                    description: The prompt of the audio
+                negative_prompt:
+                    type: string
+                    description: The negative prompt of the audio
+                callback_url:
+                    type: string
+                    format: uri
+                    description: The callback URL for the audio
 
 paths:
     /ping:
@@ -688,6 +709,41 @@ paths:
             responses:
                 '200':
                     description: Generation upscaled
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Generation'
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /generations/{id}/audio:
+        post:
+            summary: Add audio to a generation
+            description: Add audio to a generation by its ID
+            operationId: addAudioToGeneration
+            tags:
+                - Generations
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                  description: The ID of the generation
+            requestBody:
+                required: true
+                description: The audio generation request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AudioGenerationRequest'
+            responses:
+                '200':
+                    description: Audio added to generation
                     content:
                         application/json:
                             schema:

@@ -15,6 +15,7 @@ resources:
                 endpoint: get /generations
                 paginated: false
             upscale: post /generations/{id}/upscale
+            audio: post /generations/{id}/audio
         subresources:
             camera_motion:
                 methods:
