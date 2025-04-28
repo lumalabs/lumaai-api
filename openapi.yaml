@@ -201,6 +201,16 @@ components:
                       - 9s
                 - type: string
 
+        Concept:
+            type: object
+            description: The concept object
+            properties:
+                key:
+                    type: string
+                    description: The key of the concept
+            required:
+                - key
+
         GenerationRequest:
             type: object
             description: The generation request object
@@ -235,6 +245,11 @@ components:
                 duration:
                     $ref: '#/components/schemas/VideoModelOutputDuration'
                     description: The duration of the generation
+                concepts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Concept'
+                    description: The concepts of the generation
             examples:
                 - summary: Text to video
                   value:
@@ -500,6 +515,14 @@ components:
                             $ref: '#/components/schemas/ImageIdentity'
                 modify_image_ref:
                     $ref: '#/components/schemas/ModifyImageRef'
+                sync:
+                    type: boolean
+                    description: Create image in synchronous mode and return complated image
+                    default: false
+                sync_timeout:
+                    type: number
+                    description: The timeout for the synchronous image generation
+                    default: 60
 
         UpscaleVideoGenerationRequest:
             type: object
@@ -755,16 +778,16 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/Error'
 
-    /generations/camera_motion/list:
+    /generations/concepts:
         get:
-            summary: Get camera motions
-            description: Get all possible camera motions
-            operationId: getCameraMotion
+            summary: Get concepts
+            description: Get all possible concepts
+            operationId: getConcepts
             tags:
                 - Generations
             responses:
                 '200':
-                    description: Camera motion found
+                    description: Concepts found
                     content:
                         application/json:
                             schema:
