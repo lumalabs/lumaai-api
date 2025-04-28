@@ -17,11 +17,11 @@ resources:
             upscale: post /generations/{id}/upscale
             audio: post /generations/{id}/audio
         subresources:
-            camera_motion:
+            concepts:
                 methods:
                     list:
                         type: http
-                        endpoint: get /generations/camera_motion/list
+                        endpoint: get /generations/concepts/list
                         paginated: false
             image:
                 methods:
