@@ -478,6 +478,14 @@ components:
             default: photon-1
             description: The image model used for the generation
 
+        ImageFormat:
+            type: string
+            enum:
+                - jpg
+                - png
+            default: jpg
+            description: The format of the image
+
         ImageGenerationRequest:
             type: object
             description: The image generation request object
@@ -496,6 +504,10 @@ components:
                 aspect_ratio:
                     $ref: '#/components/schemas/AspectRatio'
                     description: The aspect ratio of the generation
+                format:
+                    $ref: '#/components/schemas/ImageFormat'
+                    description: The format of the image
+                    default: jpg
                 callback_url:
                     type: string
                     format: uri
