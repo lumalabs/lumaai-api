@@ -250,6 +250,8 @@ components:
                     items:
                         $ref: '#/components/schemas/Concept'
                     description: The concepts of the generation
+            required:
+                - model
             examples:
                 - summary: Text to video
                   value:
@@ -535,6 +537,8 @@ components:
                     type: number
                     description: The timeout for the synchronous image generation
                     default: 60
+            required:
+                - model
 
         UpscaleVideoGenerationRequest:
             type: object
