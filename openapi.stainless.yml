@@ -7,7 +7,7 @@ organization:
 resources:
     generations:
         methods:
-            create: post /generations
+            create: post /generations/video
             get: get /generations/{id}
             delete: delete /generations/{id}
             list:
@@ -26,9 +26,12 @@ resources:
             image:
                 methods:
                     create: post /generations/image
+                    reframe: post /generations/image/reframe
             video:
                 methods:
-                    create: post /generations
+                    create: post /generations/video
+                    reframe: post /generations/video/reframe
+
         models:
             generation: Generation
     ping:

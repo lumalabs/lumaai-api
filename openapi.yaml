@@ -327,6 +327,134 @@ components:
                               type: image
                               url: 'https://example.com/video.mp4'
 
+        Media:
+            type: object
+            description: The image entity object
+            properties:
+                url:
+                    type: string
+                    format: uri
+                    description: The URL of the image
+            required:
+                - url
+
+        ReframeImageModels:
+            type: string
+            enum:
+                - photon-1
+                - photon-flash-1
+            description: The model used for the reframe image
+
+        ReframeVideoModels:
+            type: string
+            enum:
+                - ray-2
+                - ray-flash-2
+            description: The model used for the reframe video
+
+        ReframeImageRequest:
+            type: object
+            description: The reframe image generation request object
+            properties:
+                generation_type:
+                    type: string
+                    enum:
+                        - reframe_image
+                    default: reframe_image
+                media:
+                    $ref: '#/components/schemas/Media'
+                model:
+                    $ref: '#/components/schemas/ReframeImageModels'
+                    description: The model used for the reframe image
+                prompt:
+                    type: string
+                    description: The prompt of the generation
+                    default: ''
+                aspect_ratio:
+                    $ref: '#/components/schemas/AspectRatio'
+                    description: The aspect ratio of the generation
+                grid_position_x:
+                    type: integer
+                    description: The x position of the image in the grid
+                grid_position_y:
+                    type: integer
+                    description: The y position of the image in the grid
+                x_start:
+                    type: integer
+                    description: The x start of the crop bounds
+                x_end:
+                    type: integer
+                    description: The x end of the crop bounds
+                y_start:
+                    type: integer
+                    description: The y start of the crop bounds
+                y_end:
+                    type: integer
+                    description: The y end of the crop bounds
+                format:
+                    $ref: '#/components/schemas/ImageFormat'
+                    description: The format of the image
+                callback_url:
+                    type: string
+                    format: uri
+                    description: The callback URL of the generation, a POST request with Generation object will be sent to the callback URL when the generation is dreaming, completed, or failed
+            required:
+                - media
+                - aspect_ratio
+                - model
+                - generation_type
+
+        ReframeVideoRequest:
+            type: object
+            description: The reframe video generation request object
+            properties:
+                generation_type:
+                    type: string
+                    enum:
+                        - reframe_video
+                    default: reframe_video
+                media:
+                    $ref: '#/components/schemas/Media'
+                first_frame:
+                    $ref: '#/components/schemas/Media'
+                model:
+                    $ref: '#/components/schemas/ReframeVideoModels'
+                    description: The model used for the reframe video
+                prompt:
+                    type: string
+                    description: The prompt of the generation
+                    default: ''
+                aspect_ratio:
+                    $ref: '#/components/schemas/AspectRatio'
+                    description: The aspect ratio of the generation
+                grid_position_x:
+                    type: integer
+                    description: The x position of the image in the grid
+                grid_position_y:
+                    type: integer
+                    description: The y position of the image in the grid
+                x_start:
+                    type: integer
+                    description: The x start of the crop bounds
+                x_end:
+                    type: integer
+                    description: The x end of the crop bounds
+                y_start:
+                    type: integer
+                    description: The y start of the crop bounds
+                y_end:
+                    type: integer
+                    description: The y end of the crop bounds
+                callback_url:
+                    type: string
+                    format: uri
+                    description: The callback URL of the generation, a POST request with Generation object will be sent to the callback URL when the generation is dreaming, completed, or failed
+            required:
+                - media
+                - aspect_ratio
+                - model
+                - generation_type
+
         GenerationType:
             type: string
             enum:
@@ -367,6 +495,8 @@ components:
                         - $ref: '#/components/schemas/ImageGenerationRequest'
                         - $ref: '#/components/schemas/UpscaleVideoGenerationRequest'
                         - $ref: '#/components/schemas/AudioGenerationRequest'
+                        - $ref: '#/components/schemas/ReframeImageRequest'
+                        - $ref: '#/components/schemas/ReframeVideoRequest'
                     description: The request of the generation
             example:
                 id: '123e4567-e89b-12d3-a456-426614174000'
@@ -856,6 +986,66 @@ paths:
             responses:
                 '201':
                     description: Image generated
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Generation'
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /generations/image/reframe:
+        post:
+            summary: Reframe an image
+            description: Reframe an image by its ID
+            operationId: reframeImage
+            tags:
+                - Generations
+                - Image
+                - Reframe
+            requestBody:
+                required: true
+                description: The reframe image generation request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ReframeImageRequest'
+            responses:
+                '201':
+                    description: Image reframed
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Generation'
+                default:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+    /generations/video/reframe:
+        post:
+            summary: Reframe a video
+            description: Reframe a video by its ID
+            operationId: reframeVideo
+            tags:
+                - Generations
+                - Video
+                - Reframe
+            requestBody:
+                required: true
+                description: The reframe video generation request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ReframeVideoRequest'
+            responses:
+                '201':
+                    description: Video reframed
                     content:
                         application/json:
                             schema:
