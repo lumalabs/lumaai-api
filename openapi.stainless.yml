@@ -69,16 +69,17 @@ readme:
     example_requests:
         default:
             type: request
-            endpoint: post /generations
+            endpoint: post /generations/video
             params:
                 &ref_0 {
                     prompt: 'A teddy bear in sunglasses playing electric guitar, dancing and headbanging in the jungle in front of a large beautiful waterfall',
                     aspect_ratio: '16:9',
                     loop: false,
+                    model: 'ray-2',
                 }
         headline:
             type: request
-            endpoint: post /generations
+            endpoint: post /generations/video
             params: *ref_0
     include_stainless_attribution: false
 
