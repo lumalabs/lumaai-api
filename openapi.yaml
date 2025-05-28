@@ -729,7 +729,7 @@ paths:
                                 example:
                                     message: 'pong'
 
-    /generations:
+    /generations/video:
         post:
             summary: Create a generation
             description: Initiate a new generation with the provided prompt
@@ -770,6 +770,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/Error'
 
+    /generations:
         get:
             summary: List generations
             description: Retrieve a list of generations with optional filtering and sorting
