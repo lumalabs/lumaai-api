@@ -391,6 +391,12 @@ components:
                 y_end:
                     type: integer
                     description: The y end of the crop bounds
+                resized_width:
+                    type: integer
+                    description: Resized width of source image
+                resized_height:
+                    type: integer
+                    description: Resized height of source image
                 format:
                     $ref: '#/components/schemas/ImageFormat'
                     description: The format of the image
@@ -445,6 +451,12 @@ components:
                 y_end:
                     type: integer
                     description: The y end of the crop bounds
+                resized_width:
+                    type: integer
+                    description: Resized width of source video
+                resized_height:
+                    type: integer
+                    description: Resized height of source video
                 callback_url:
                     type: string
                     format: uri
