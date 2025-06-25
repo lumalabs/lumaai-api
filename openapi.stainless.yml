@@ -31,6 +31,7 @@ resources:
                 methods:
                     create: post /generations/video
                     reframe: post /generations/video/reframe
+                    modify: post /generations/video/modify
 
         models:
             generation: Generation
