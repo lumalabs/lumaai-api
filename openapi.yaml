@@ -414,6 +414,7 @@ components:
             type: string
             enum:
                 - ray-2
+                - ray-flash-2
             description: The model used for the modify video
 
         ModifyVideoMode:
