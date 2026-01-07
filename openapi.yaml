@@ -178,7 +178,6 @@ components:
             enum:
                 - ray-2
                 - ray-flash-2
-            default: ray-2
             example: ray-2
             description: The video model used for the generation
 
